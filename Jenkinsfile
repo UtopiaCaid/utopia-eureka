@@ -4,7 +4,7 @@ pipeline {
         COMMIT_HASH="${sh(script:'git rev-parse --short HEAD', returnStdout: true).trim()}"
         AWS_LOGIN="aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 499898275313.dkr.ecr.us-east-2.amazonaws.com"
         AWS_ID="499898275313.dkr.ecr.us-east-2.amazonaws.com"
-        DB_URL=${sh(script:echo $DB_URL, returnStdout: true)}"
+        DB_URL=${sh(script:'echo $DB_URL', returnStdout: true)}"
     }
     tools {
         maven 'Maven 3.6.3'
