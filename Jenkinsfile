@@ -32,14 +32,14 @@ pipeline {
             }
         }
 
-        // stage('Deploy') {
-        //    steps {
-        //        sh "touch ECSService.yml"
-        //        sh "rm ECSService.yml"
-        //        sh "wget https://raw.githubusercontent.com/SmoothstackUtopiaProject/CloudFormationTemplates/main/ECSService.yml"
-        //        sh "aws cloudformation deploy --stack-name UtopiaFlightMS --template-file ./ECSService.yml --parameter-overrides ApplicationName=UtopiaFlightMS ECRepositoryUri=$AWS_ID/utopiaairlines/flightms:$COMMIT_HASH DBUsername=$DB_USERNAME DBPassword=$DB_PASSWORD SubnetID=$SUBNET_ID SecurityGroupID=$SECURITY_GROUP_ID TGArn=$UTOPIA_FLIGHTMS_TARGETGROUP --capabilities \"CAPABILITY_IAM\" \"CAPABILITY_NAMED_IAM\""
-        //    }
-        // }
+        stage('Deploy') {
+           steps {
+           //    sh "touch ECSService.yml"
+           //    sh "rm ECSService.yml"
+           //    sh "wget https://raw.githubusercontent.com/SmoothstackUtopiaProject/CloudFormationTemplates/main/ECSService.yml"
+               sh "aws cloudformation deploy --stack-name UtopiaEurekaMS --template-file ./test-utopia-cftemplate.yml --parameter-overrides ApplicationName=UtopiaEurekaMS ECRepositoryUri=$AWS_ID/utopia-eureka:$COMMIT_HASH DBUrl=$DB_URL` DBUsername=$DB_USERNAME DBPassword=$DB_PASSWORD ExecutionRoleArn=$EXECUTION_ROLE_ARN SubnetID=$SUBNET_ID TargetGroupArnDev=$UTOPIA_EUREKAMS_TARGETGROUP VpcId=$VPC_ID  --capabilities \"CAPABILITY_IAM\" \"CAPABILITY_NAMED_IAM\""
+           }
+        }
 
         stage('Cleanup') {
             steps {
