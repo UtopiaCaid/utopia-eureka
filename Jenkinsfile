@@ -4,6 +4,7 @@ pipeline {
         COMMIT_HASH="${sh(script:'git rev-parse --short HEAD', returnStdout: true).trim()}"
         AWS_LOGIN="aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 499898275313.dkr.ecr.us-east-2.amazonaws.com"
         AWS_ID="499898275313.dkr.ecr.us-east-2.amazonaws.com"
+        AWS_ACCESS_KEY="${sh(script:'echo $AWS_ACCESS_KEY', returnStdout: true)}"
         DB_USERNAME="${sh(script:'echo $DB_USERNAME', returnStdout: true)}"
         DB_PASSWORD="${sh(script:'echo $DB_PASSWORD', returnStdout: true)}"
         DB_URL="${sh(script:'echo $DB_URL', returnStdout: true)}"
@@ -44,6 +45,7 @@ pipeline {
            //    sh "touch ECSService.yml"
            //    sh "rm ECSService.yml"
            //    sh "wget https://raw.githubusercontent.com/SmoothstackUtopiaProject/CloudFormationTemplates/main/ECSService.yml"
+               aws configure --region us-east-2
                sh "aws cloudformation deploy --stack-name UtopiaEurekaMS --template-file ./test-utopia-cftemplate.yml --parameter-overrides ApplicationName=UtopiaEurekaMS ECRepositoryUri=$AWS_ID/utopia-eureka:$COMMIT_HASH DBUrl=$DB_URL` DBUsername=$DB_USERNAME DBPassword=$DB_PASSWORD ExecutionRoleArn=$EXECUTION_ROLE_ARN SubnetID=$UTOPIA_PRIVATE_SUBNET_1 TargetGroupArnDev=$TARGETGROUP_UTOPIA_EUREKA_DEV_ARN VpcId=$UTOPIA_PUBLIC_VPC_ID  --capabilities \"CAPABILITY_IAM\" \"CAPABILITY_NAMED_IAM\""
            }
         }
