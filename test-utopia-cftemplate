@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Description: Utopia Airlines Demo Project Microservices Template.
+Description: Utopia Airlines Demo Project Microservices Template.
 # Used to pass parameters from cli to CloudFormation. e.g. You can pass the Environment you are deploying to.
 # This is useful to implement conditions.
 Parameters:
