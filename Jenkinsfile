@@ -44,8 +44,9 @@ pipeline {
                 //    sh "touch ECSService.yml"
                 //    sh "rm ECSService.yml"
                 //    sh "wget https://raw.githubusercontent.com/Utopia/CloudFormationTemplates/main/ECSService.yml"
+                sh 'export AWS_DEFAULT_REGION=us-east-2'
                 sh """aws cloudformation deploy --stack-name UtopiaEurekaMS --template-file ./test-utopia-cftemplate.yml
-                -Region us-east-2 --parameter-overrides ApplicationName=UtopiaEurekaMS
+                --parameter-overrides ApplicationName=UtopiaEurekaMS
                 ECRepositoryUri=$AWS_ID/utopia-eureka:$COMMIT_HASH DBUrl=$DB_URL` DBUsername=$DB_USERNAME
                 DBPassword=$DB_PASSWORD ExecutionRoleArn=$EXECUTION_ROLE_ARN SubnetID=$UTOPIA_PRIVATE_SUBNET_1
                 TargetGroupArnDev=$TARGETGROUP_UTOPIA_EUREKA_DEV_ARN VpcId=$UTOPIA_PUBLIC_VPC_ID
