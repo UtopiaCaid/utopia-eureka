@@ -41,21 +41,21 @@ pipeline {
 
         stage('Deploy') {
             steps {
-             //    sh "touch ECSService.yml"
-             //    sh "rm ECSService.yml"
-             //    sh "wget https://raw.githubusercontent.com/Utopia/CloudFormationTemplates/main/ECSService.yml"
-                sh  aws configure --region us-east-2
+                //    sh "touch ECSService.yml"
+                //    sh "rm ECSService.yml"
+                //    sh "wget https://raw.githubusercontent.com/Utopia/CloudFormationTemplates/main/ECSService.yml"
+                sh  'aws configure --region us-east-2'
                 sh """aws cloudformation deploy --stack-name UtopiaEurekaMS --template-file ./test-utopia-cftemplate.yml
                 --parameter-overrides ApplicationName=UtopiaEurekaMS ECRepositoryUri=$AWS_ID/utopia-eureka:$COMMIT_HASH
                 DBUrl=$DB_URL` DBUsername=$DB_USERNAME DBPassword=$DB_PASSWORD ExecutionRoleArn=$EXECUTION_ROLE_ARN
                 SubnetID=$UTOPIA_PRIVATE_SUBNET_1 TargetGroupArnDev=$TARGETGROUP_UTOPIA_EUREKA_DEV_ARN
                 VpcId=$UTOPIA_PUBLIC_VPC_ID  --capabilities \"CAPABILITY_IAM\" \"CAPABILITY_NAMED_IAM\"" """
-           }
+            }
         }
 
         stage('Cleanup') {
             steps {
-                sh "docker system prune -f"
+                sh 'docker system prune -f'
             // sh "docker image prune -a"
             }
         }
