@@ -61,6 +61,7 @@ pipeline {
                 echo "$UTOPIA_PRIVATE_SUBNET_1"
                 echo "$UTOPIA_PUBLIC_VPC_ID"
                 /* groovylint-disable-next-line LineLength */
+                sh 'chmod +x ./aws-cf-deploy.sh'
                 sh './aws-cf-deploy.sh'
             }
         }
