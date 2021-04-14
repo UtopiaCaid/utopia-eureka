@@ -202,26 +202,26 @@ Resources:
               awslogs-create-group: "true"
 
   # Role with permissions that a task needs to do its job e.g. kinesis read, dynamo r/w, cloudwatch metrics
-  TaskPolicy:
-    Type: AWS::IAM::Policy
-    Properties:
-      PolicyName: !Sub ECS-TaskPolicy-${ApplicationName}-${ApplicationEnvironment}
-      PolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          # Cloudwatch monitoring
-          - Effect: Allow
-            Action:
-              - cloudwatch:PutMetricData
-            Resource: "*"
-          - Effect: Allow
-            Action:
-              - logs:CreateLogGroup
-              - logs:CreateLogStream
-              - logs:PutLogEvents
-              - logs:DescribeLogStreams
-            Resource:
-              - arn:aws:logs:*:*
-      Roles:
-        - !Ref TaskExecutionRole
+  # TaskPolicy:
+  #   Type: AWS::IAM::Policy
+  #   Properties:
+  #     PolicyName: !Sub 'ECS-TaskPolicy-${ApplicationName}-${ApplicationEnvironment}'
+  #     PolicyDocument:
+  #       Version: 2012-10-17
+  #       Statement:
+  #         # Cloudwatch monitoring
+  #         - Effect: Allow
+  #           Action:
+  #             - cloudwatch:PutMetricData
+  #           Resource: "*"
+  #         - Effect: Allow
+  #           Action:
+  #             - logs:CreateLogGroup
+  #             - logs:CreateLogStream
+  #             - logs:PutLogEvents
+  #             - logs:DescribeLogStreams
+  #           Resource:
+  #             - arn:aws:logs:*:*
+  #     Roles:
+  #       - !Ref TaskExecutionRole
     
