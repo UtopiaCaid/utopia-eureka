@@ -6,16 +6,16 @@ pipeline {
         AWS_LOGIN = 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 499898275313.dkr.ecr.us-east-2.amazonaws.com'
         AWS_ID = '499898275313.dkr.ecr.us-east-2.amazonaws.com'
         AWS_ACCESS_KEY = "${sh(script:'echo $AWS_ACCESS_KEY', returnStdout: true)}"
-        DB_USERNAME = "${sh(script:'echo $DB_USERNAME', returnStdout: true)}"
-        DB_PASSWORD = "${sh(script:'echo $DB_PASSWORD', returnStdout: true)}"
-        DB_URL = "${sh(script:'echo $DB_URL', returnStdout: true)}"
-        EXECUTION_ROLE_ARN = "${sh(script:'echo $EXECUTION_ROLE_ARN', returnStdout: true)}"
+        DB_USERNAME = credentials('DB_USERNAME')
+        DB_PASSWORD = credentials('DB_PASSWORD')
+        DB_URL = credentials('DB_URL')
+        EXECUTION_ROLE_ARN = credentials('EXECUTION_ROLE_ARN')
         /* groovylint-disable-next-line LineLength */
-        TARGETGROUP_UTOPIA_EUREKA_DEV_ARN = "${sh(script:'echo $TARGETGROUP_UTOPIA_EUREKA_DEV_ARN', returnStdout: true)}"
+        TARGETGROUP_UTOPIA_EUREKA_DEV_ARN = credentials('TARGETGROUP_UTOPIA_EUREKA_DEV_ARN')
         /* groovylint-disable-next-line LineLength */
-        TARGETGROUP_UTOPIA_EUREKA_PROD_ARN = "${sh(script:'echo $TARGETGROUP_UTOPIA_EUREKA_PROD_ARN', returnStdout: true)}"
-        UTOPIA_PRIVATE_SUBNET_1 = "${sh(script:'echo $UTOPIA_PRIVATE_SUBNET_1', returnStdout: true)}"
-        UTOPIA_PUBLIC_VPC_ID = "${sh(script:'echo $UTOPIA_PUBLIC_VPC_ID', returnStdout: true)}"
+        TARGETGROUP_UTOPIA_EUREKA_PROD_ARN = credentials('TARGETGROUP_UTOPIA_EUREKA_PROD_ARN')
+        UTOPIA_PRIVATE_SUBNET_1 = credentials('UTOPIA_PRIVATE_SUBNET_1')
+        UTOPIA_PUBLIC_VPC_ID = credentials('UTOPIA_PUBLIC_VPC_ID')
     }
     tools {
         maven 'Maven 3.6.3'
