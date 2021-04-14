@@ -10,7 +10,7 @@ pipeline {
         AWS_SECRET_TARGET_GROUPS = credentials('dev/utopia/target-groups')
         AWS_SECRET_VPC = credentials('dev/utopia/vpc')
         /* groovylint-disable-next-line LineLength */
-        DB_USERNAME = "${sh(script:'$AWS_SECRET_MYSQL | jq -r \'. | .DB_USERNAME \', returnStdout: true)}"
+        DB_USERNAME = "${sh(script:'$AWS_SECRET_MYSQL | jq -r \'. | .DB_USERNAME \'', returnStdout: true)}"
         //DB_PASSWORD = $AWS_SECRET_MYSQL['DB_PASSWORD']
         //DB_URL = $AWS_SECRET_MYSQL['DB_URL']
         //EXECUTION_ROLE_ARN = $AWS_SECRET_TARGET_GROUPS['EXECUTION_ROLE_ARN']
