@@ -135,6 +135,25 @@ Resources:
           SecurityGroups:
             - !Ref ServicesSecurityGroup
   
+  #IAM for application container (task)
+  TaskExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "ECS-TaskExecutionRole-${ApplicationName}-${ApplicationEnvironment}"
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ecs-tasks.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Tags:
+        - Key: ApplicationName
+          Value: !Ref ApplicationName
+        - Key: ApplicationEnvironment
+          Value: !Ref ApplicationEnvironment
+          
   # Fargate Task Definition
   AppTaskDefinition:
     Type: AWS::ECS::TaskDefinition
@@ -205,23 +224,4 @@ Resources:
               - arn:aws:logs:*:*
       Roles:
         - !Ref TaskExecutionRole
-  
-  #IAM for application container (task)
-  TaskExecutionRole:
-    Type: AWS::IAM::Role
-    Properties:
-      RoleName: !Sub "ECS-TaskExecutionRole-${ApplicationName}-${ApplicationEnvironment}"
-      AssumeRolePolicyDocument:
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service:
-                - ecs-tasks.amazonaws.com
-            Action:
-              - sts:AssumeRole
-      Tags:
-        - Key: ApplicationName
-          Value: !Ref ApplicationName
-        - Key: ApplicationEnvironment
-          Value: !Ref ApplicationEnvironment
     
