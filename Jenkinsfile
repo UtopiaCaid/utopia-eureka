@@ -7,7 +7,7 @@ pipeline {
         AWS_ID = '499898275313.dkr.ecr.us-east-2.amazonaws.com'
         AWS_ACCESS_KEY = "${sh(script:'echo $AWS_ACCESS_KEY', returnStdout: true)}"
         AWS_SECRET_MYSQL = credentials('dev/utopia/mysql')
-        AWS_SECRET_TARGET_GROUPS = credentials('dev/utopia/target-groups')
+        //AWS_SECRET_TARGET_GROUPS = credentials('dev/utopia/target-groups')
         AWS_SECRET_VPC = credentials('dev/utopia/vpc')
         //DB_USERNAME = "AWS_SECRET_MYSQL['DB_USERNAME']"
         //DB_PASSWORD = $AWS_SECRET_MYSQL['DB_PASSWORD']
