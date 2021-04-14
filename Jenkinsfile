@@ -9,11 +9,7 @@ pipeline {
         AWS_SECRET_MYSQL = credentials('mysql')
         AWS_SECRET_TARGET_GROUPS = credentials('target-groups')
         AWS_SECRET_VPC = credentials('vpc')
-<<<<<<< HEAD
         DB_USERNAME = "AWS_SECRET_MYSQL['DB_USERNAME']"
-=======
-        DB_USERNAME = AWS_SECRET_MYSQL['DB_USERNAME']
->>>>>>> 33c376c85ab9f496baec120275884830abe5b304
         DB_PASSWORD = AWS_SECRET_MYSQL['DB_PASSWORD']
         DB_URL = AWS_SECRET_MYSQL['DB_URL']
         EXECUTION_ROLE_ARN = AWS_SECRET_TARGET_GROUPS['EXECUTION_ROLE_ARN']
