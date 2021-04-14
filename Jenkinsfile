@@ -11,15 +11,18 @@ pipeline {
         AWS_SECRET_VPC = credentials('dev/utopia/vpc')
         /* groovylint-disable-next-line LineLength */
         DB_USERNAME = "${sh(script:'$AWS_SECRET_MYSQL | jq -r \'. | .DB_USERNAME \'', returnStdout: true)}"
-        //DB_PASSWORD = $AWS_SECRET_MYSQL['DB_PASSWORD']
-        //DB_URL = $AWS_SECRET_MYSQL['DB_URL']
-        //EXECUTION_ROLE_ARN = $AWS_SECRET_TARGET_GROUPS['EXECUTION_ROLE_ARN']
+        DB_PASSWORD = "${sh(script:'$AWS_SECRET_MYSQL | jq -r \'. | .DB_PASSWORD \'', returnStdout: true)}"
+        DB_URL = "${sh(script:'$AWS_SECRET_MYSQL | jq -r \'. | .DB_URL \'', returnStdout: true)}"
         /* groovylint-disable-next-line LineLength */
-        //TARGETGROUP_UTOPIA_EUREKA_DEV_ARN = $AWS_SECRET_TARGET_GROUPS['TARGETGROUP_UTOPIA_EUREKA_DEV_ARN']
+        EXECUTION_ROLE_ARN = "${sh(script:'$AWS_SECRET_TARGET_GROUPS | jq -r \'. | .EXECUTION_ROLE_ARN \'', returnStdout: true)}"
         /* groovylint-disable-next-line LineLength */
-        //TARGETGROUP_UTOPIA_EUREKA_PROD_ARN = $AWS_SECRET_TARGET_GROUPS['TARGETGROUP_UTOPIA_EUREKA_PROD_ARN']
-        //UTOPIA_PRIVATE_SUBNET_1 = $AWS_SECRET_VPC['UTOPIA_PRIVATE_SUBNET_1']
-        //UTOPIA_PUBLIC_VPC_ID = $AWS_SECRET_VPC['UTOPIA_PUBLIC_VPC_ID']
+        TARGETGROUP_UTOPIA_EUREKA_DEV_ARN = "${sh(script:'$AWS_SECRET_TARGET_GROUPS | jq -r \'. | .TARGETGROUP_UTOPIA_EUREKA_DEV_ARN \'', returnStdout: true)}"
+        /* groovylint-disable-next-line LineLength */
+        TARGETGROUP_UTOPIA_EUREKA_PROD_ARN = "${sh(script:'$AWS_SECRET_TARGET_GROUPS | jq -r \'. | .TARGETGROUP_UTOPIA_EUREKA_PROD_ARN \'', returnStdout: true)}"
+        /* groovylint-disable-next-line LineLength */
+        UTOPIA_PRIVATE_SUBNET_1 = "${sh(script:'$AWS_SECRET_VPC | jq -r \'. | .UTOPIA_PRIVATE_SUBNET_1 \'', returnStdout: true)}"
+        /* groovylint-disable-next-line LineLength */
+        UTOPIA_PUBLIC_VPC_ID = "${sh(script:'$AWS_SECRET_VPC | jq -r \'. | .UTOPIA_PUBLIC_VPC_ID \'', returnStdout: true)}"
     }
     tools {
         maven 'Maven 3.6.3'
@@ -49,7 +52,7 @@ pipeline {
             steps {
                 sh 'export AWS_DEFAULT_REGION=us-east-2'
                 /* groovylint-disable-next-line LineLength */
-                echo "$AWS_SECRET_MYSQL"
+                echo "$DB_USERNAME"
                 echo "$AWS_SECRET_TARGET_GROUPS"
                 echo "$AWS_SECRET_VPC"
                 /* groovylint-disable-next-line LineLength */
