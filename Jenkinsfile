@@ -41,8 +41,8 @@ pipeline {
             steps {
                 echo 'Deploying....'
                 sh "$AWS_LOGIN"
-                sh "if test -f \"target/utopia-0.0.1-SNAPSHOT.jar\"; then echo \"target/utopia-0.0.1-SNAPSHOT.jar exists.\" fi"
                 sh "docker build -t utopia-eureka:$COMMIT_HASH ."
+                sh 'if test -f "target/utopia-0.0.1-SNAPSHOT.jar"; then echo "target/utopia-0.0.1-SNAPSHOT.jar exists." fi'
                 sh 'docker images'
                 sh "docker tag utopia-eureka:$COMMIT_HASH $AWS_ID/utopia-eureka:$COMMIT_HASH"
                 sh "docker push $AWS_ID/utopia-eureka:$COMMIT_HASH"
