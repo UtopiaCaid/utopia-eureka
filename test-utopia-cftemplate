@@ -201,7 +201,7 @@ Resources:
               awslogs-stream-prefix: ecs
               awslogs-create-group: "true"
 
-  Role with permissions that a task needs to do its job e.g. kinesis read, dynamo r/w, cloudwatch metrics
+  #Role with permissions that a task needs to do its job e.g. kinesis read, dynamo r/w, cloudwatch metrics
   TaskPolicy:
     Type: AWS::IAM::Policy
     Properties:
