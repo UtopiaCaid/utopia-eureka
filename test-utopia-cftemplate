@@ -21,7 +21,12 @@ Parameters:
   ECRepositoryUri:
     Type: String
     Description: Full URI of Docker Image to run in container
-  # ARN of the Service's Execution Role (requires all read/write permissions of service needed)
+  # ECS Cluster Arn where the Service will run
+  # Looks like : arn:aws:ecs:us-east-2:499898275313:cluster/<name-of-cluster>
+  ECSCluser:
+    Type: String
+    Description: Arn of the cluster where the service will exist.
+    # ARN of the Service's Execution Role (requires all read/write permissions of service needed)
   # Looks like: "arn:aws:iam::${AWS_ID}:role/MyTaskExecutionRole"
   ExecutionRoleArn:
     Type: String
@@ -72,11 +77,6 @@ Conditions:
   #UserMS: !Equals [!Ref ApplicationName, UtopiaUserMS]
       
 Resources:
-  AppCluster:
-    Type: AWS::ECS::Cluster
-    Properties:
-      ClusterName: !Join ["-", [!Ref ApplicationName, "Cluster"]]
-  
   ServicesSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -110,7 +110,7 @@ Resources:
     Type: AWS::ECS::Service
     Properties:
       ServiceName: !Ref ApplicationName
-      Cluster: !Ref AppCluster
+      Cluster: !Ref ECSCluster
       TaskDefinition: !Ref AppTaskDefinition
       DeploymentConfiguration:
         MinimumHealthyPercent: 100

@@ -19,6 +19,7 @@ pipeline {
         TARGETGROUP_UTOPIA_EUREKA_DEV_ARN = "${sh(script:'echo $AWS_SECRET_TARGET_GROUPS | jq -r \'. | .TARGETGROUP_UTOPIA_EUREKA_DEV_ARN \'', returnStdout: true)}"
         /* groovylint-disable-next-line LineLength */
         TARGETGROUP_UTOPIA_EUREKA_PROD_ARN = "${sh(script:'echo $AWS_SECRET_TARGET_GROUPS | jq -r \'. | .TARGETGROUP_UTOPIA_EUREKA_PROD_ARN \'', returnStdout: true)}"
+        UTOPIA_CLUSTER = "${sh(script:'echo $AWS_SECRET_VPC | jq -r \'. | .UTOPIA_CLUSTER \'', returnStdout: true)}"
         /* groovylint-disable-next-line LineLength */
         UTOPIA_PRIVATE_SUBNET_1 = "${sh(script:'echo $AWS_SECRET_VPC | jq -r \'. | .UTOPIA_PRIVATE_SUBNET_1 \'', returnStdout: true)}"
         /* groovylint-disable-next-line LineLength */
