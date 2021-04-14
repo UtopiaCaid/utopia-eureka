@@ -139,7 +139,7 @@ Resources:
   TaskExecutionRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub "ECS-TaskExecutionRole-${ApplicationName}-${ApplicationEnvironment}"
+      RoleName: !Sub ECS-TaskExecutionRole-${ApplicationName}-${ApplicationEnvironment}
       AssumeRolePolicyDocument:
         Statement:
           - Effect: Allow
@@ -153,7 +153,7 @@ Resources:
           Value: !Ref ApplicationName
         - Key: ApplicationEnvironment
           Value: !Ref ApplicationEnvironment
-          
+
   # Fargate Task Definition
   AppTaskDefinition:
     Type: AWS::ECS::TaskDefinition
@@ -205,7 +205,7 @@ Resources:
   TaskPolicy:
     Type: AWS::IAM::Policy
     Properties:
-      PolicyName: !Sub "ECS-TaskPolicy-${ApplicationName}-${ApplicationEnvironment}"
+      PolicyName: !Sub ECS-TaskPolicy-${ApplicationName}-${ApplicationEnvironment}
       PolicyDocument:
         Version: 2012-10-17
         Statement:
