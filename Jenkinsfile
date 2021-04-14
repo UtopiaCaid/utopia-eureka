@@ -53,8 +53,13 @@ pipeline {
                 sh 'export AWS_DEFAULT_REGION=us-east-2'
                 /* groovylint-disable-next-line LineLength */
                 echo "$DB_USERNAME"
-                echo "$AWS_SECRET_TARGET_GROUPS"
-                echo "$AWS_SECRET_VPC"
+                echo "$DB_PASSWORD"
+                echo "$DB_URL"
+                echo "$EXECUTION_ROLE_ARN"
+                echo "$TARGETGROUP_UTOPIA_EUREKA_DEV_ARN"
+                echo "$TARGETGROUP_UTOPIA_EUREKA_PROD_ARN"
+                echo "$UTOPIA_PRIVATE_SUBNET_1"
+                echo "$UTOPIA_PUBLIC_VPC_ID"
                 /* groovylint-disable-next-line LineLength */
                 sh "aws cloudformation deploy --region us-east-2 --stack-name UtopiaEurekaMS --template-file test-utopia-cftemplate --parameter-overrides ApplicationName=UtopiaEurekaMS ECRepositoryUri=$AWS_ID/utopia-eureka:$COMMIT_HASH DBUrl=$DB_URL` DBUsername=$DB_USERNAME DBPassword=$DB_PASSWORD ExecutionRoleArn=$EXECUTION_ROLE_ARN SubnetID=$UTOPIA_PRIVATE_SUBNET_1 TargetGroupArnDev=$TARGETGROUP_UTOPIA_EUREKA_DEV_ARN TargetGroupArnProd=$TARGETGROUP_UTOPIA_EUREKA_PROD_ARN VpcId=$UTOPIA_PUBLIC_VPC_ID --capabilities \"CAPABILITY_IAM\" \"CAPABILITY_NAMED_IAM\""
             }
