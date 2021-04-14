@@ -6,9 +6,9 @@ pipeline {
         AWS_LOGIN = 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 499898275313.dkr.ecr.us-east-2.amazonaws.com'
         AWS_ID = '499898275313.dkr.ecr.us-east-2.amazonaws.com'
         AWS_ACCESS_KEY = "${sh(script:'echo $AWS_ACCESS_KEY', returnStdout: true)}"
-        AWS_SECRET_MYSQL = credentials('mysql')
-        AWS_SECRET_TARGET_GROUPS = credentials('target-groups')
-        AWS_SECRET_VPC = credentials('vpc')
+        AWS_SECRET_MYSQL = credentials('dev/utopia/mysql')
+        AWS_SECRET_TARGET_GROUPS = credentials('dev/utopia/target-groups')
+        AWS_SECRET_VPC = credentials('dev/utopia/vpc')
         //DB_USERNAME = "AWS_SECRET_MYSQL['DB_USERNAME']"
         //DB_PASSWORD = $AWS_SECRET_MYSQL['DB_PASSWORD']
         //DB_URL = $AWS_SECRET_MYSQL['DB_URL']
