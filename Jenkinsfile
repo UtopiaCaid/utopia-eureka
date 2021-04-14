@@ -42,7 +42,7 @@ pipeline {
                 echo 'Deploying....'
                 sh "$AWS_LOGIN"
                 sh "docker build -t utopia-eureka:$COMMIT_HASH ."
-                sh 'ls'
+                sh 'ls target/'
                 sh 'docker images'
                 sh "docker tag utopia-eureka:$COMMIT_HASH $AWS_ID/utopia-eureka:$COMMIT_HASH"
                 sh "docker push $AWS_ID/utopia-eureka:$COMMIT_HASH"
