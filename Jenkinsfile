@@ -7,10 +7,10 @@ pipeline {
         AWS_ID = '499898275313.dkr.ecr.us-east-2.amazonaws.com'
         AWS_ACCESS_KEY = "${sh(script:'echo $AWS_ACCESS_KEY', returnStdout: true)}"
         AWS_SECRET_MYSQL = credentials('dev/utopia/mysql')
-        //AWS_SECRET_TARGET_GROUPS = credentials('dev/utopia/target-groups')
-        //AWS_SECRET_VPC = credentials('dev/utopia/vpc')
+        AWS_SECRET_TARGET_GROUPS = credentials('dev/utopia/target-groups')
+        AWS_SECRET_VPC = credentials('dev/utopia/vpc')
         //DB_USERNAME = "AWS_SECRET_MYSQL['DB_USERNAME']"
-        //DB_PASSWORD = $AWS_SECRET_MYSQL['DB_PASSWORD']
+        DB_PASSWORD = $AWS_SECRET_MYSQL['DB_PASSWORD']
         //DB_URL = $AWS_SECRET_MYSQL['DB_URL']
         //EXECUTION_ROLE_ARN = $AWS_SECRET_TARGET_GROUPS['EXECUTION_ROLE_ARN']
         /* groovylint-disable-next-line LineLength */
@@ -49,8 +49,8 @@ pipeline {
                 sh 'export AWS_DEFAULT_REGION=us-east-2'
                 /* groovylint-disable-next-line LineLength */
                 echo "$AWS_SECRET_MYSQL"
-                //echo "$AWS_SECRET_TARGET_GROUPS"
-                //echo "$AWS_SECRET_VPC"
+                echo "$AWS_SECRET_TARGET_GROUPS"
+                echo "$AWS_SECRET_VPC"
                 /* groovylint-disable-next-line LineLength */
                 sh "aws cloudformation deploy --region us-east-2 --stack-name UtopiaEurekaMS --template-file test-utopia-cftemplate --parameter-overrides ApplicationName=UtopiaEurekaMS ECRepositoryUri=$AWS_ID/utopia-eureka:$COMMIT_HASH DBUrl=$DB_URL` DBUsername=$DB_USERNAME DBPassword=$DB_PASSWORD ExecutionRoleArn=$EXECUTION_ROLE_ARN SubnetID=$UTOPIA_PRIVATE_SUBNET_1 TargetGroupArnDev=$TARGETGROUP_UTOPIA_EUREKA_DEV_ARN TargetGroupArnProd=$TARGETGROUP_UTOPIA_EUREKA_PROD_ARN VpcId=$UTOPIA_PUBLIC_VPC_ID --capabilities \"CAPABILITY_IAM\" \"CAPABILITY_NAMED_IAM\""
             }
