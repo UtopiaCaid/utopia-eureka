@@ -161,7 +161,7 @@ Resources:
       Family: !Sub ${ApplicationName}-${ApplicationEnvironment}
       RequiresCompatibilities:
         - FARGATE
-      Memory: "1024"
+      Memory: "2048"
       Cpu: "256"
       NetworkMode: awsvpc
       ExecutionRoleArn: !Sub ${ExecutionRoleArn}
